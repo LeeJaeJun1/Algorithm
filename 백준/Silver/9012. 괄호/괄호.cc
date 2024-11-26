@@ -1,38 +1,36 @@
 #include<iostream>
-#include<algorithm>
 #include<stack>
 using namespace std;
 
-string VPS(string T) {
-    stack<char> st;
-    for(int i = 0; i < T.size(); i++) {
-        if(T[i] == '(') {
-            st.push('(');
+string checkvps(string s2) {
+    stack<char> s1;
+    for(int i = 0; i < s2.size(); i++) {
+        if(s2[i] == '(') {
+            s1.push('(');
         }
-        else {
-            if(st.empty() == 1) {
-            return "NO";
+        else{
+            if(s1.empty()) {
+                return "NO";
             }
-            else{
-            st.pop();
+            else {
+                s1.pop();
             }
         }
-}
-    if(st.empty() == 1) {
+    }
+    if(s1.empty()) {
         return "YES";
     }
-    else {
+    else{
         return "NO";
     }
 }
 
-
 int main() {
-    string st;
-    int T;
-    cin >> T;
-    for(int i = 0; i < T; i++) {
-        cin >> st;
-        cout << VPS(st) << "\n";
+    int t;
+    string vps;
+    cin >> t;
+    for(int j = 0; j < t; j++) {
+        cin >> vps;
+        cout << checkvps(vps) << endl;
     }
 }
