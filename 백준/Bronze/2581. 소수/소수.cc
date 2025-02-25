@@ -1,12 +1,15 @@
 #include<iostream>
 using namespace std;
 
-bool Prime(int num) {
-    if(num==1) {
+// 소수는 1과 자기 자신만을 약수로 가지는 수
+// m <= x <= n 값 중에서, 소수의 합과 최솟값 찾기
+
+bool check(int a) {
+    if(a==1) {
         return false;
     }
-    for(int i = 2; i < num; i++) {
-        if(num % i == 0) {
+    for(int i = 2; i < a; i++) {
+        if(a % i == 0) {
             return false;
         }
     }
@@ -15,25 +18,21 @@ bool Prime(int num) {
 
 int main() {
     int m,n;
-    int k = 0;
-    int total = 0;
+    int total = 0;  int min = 10000;
     cin >> m >> n;
-    int arr1[n-m+1];
-
-    for(int j = m; j <= n; j++) {
-        if(Prime(j)) {
-            total += j;
-            arr1[k] = j;
-            k++;
+    for(int i = m; i <= n; i++) {
+        if(check(i)) {
+            total += i;
+            if(min > i) {
+                min = i;
+            }
         }
     }
 
-    if(total == 0) {
-        cout << "-1";
-    }
-    else {
-        cout << total << endl;
-        cout << arr1[0];
-    }
-    return 0;
+    if(total == 0)
+        cout << -1 << endl;
+
+    else
+        cout << total << "\n" << min << "\n";
+    
 }
