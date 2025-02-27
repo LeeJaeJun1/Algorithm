@@ -3,11 +3,11 @@
 
 using namespace std;
 
-bool isPrime(long long a) {
+bool isPrime(long long a) { // 에라토스테네스의 체 사용
     if(a < 2) {
         return false;
     }
-    for(int i = 2; i <= sqrt(a); i++) {
+    for(int i = 2; i * i<= a; i++) {
         if(a % i == 0) {
             return false;
         }
