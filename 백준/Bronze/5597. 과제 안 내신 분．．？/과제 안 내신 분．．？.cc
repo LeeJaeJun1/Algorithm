@@ -1,25 +1,24 @@
 #include<iostream>
-#include<array>
+#include<algorithm>
 using namespace std;
 
 int main() {
-    int arr1[100];
-    int student;
-
-    for(int i = 1; i<=30; i++) {
-        arr1[i] = i;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int student[30];
+    int n;
+    for(int i = 0; i < 30; i++) {
+        student[i] = i + 1;
     }
 
-    for(int j = 1; j <= 28; j++) {
-        cin >> student;
-        if(arr1[student] == student) {
-            arr1[student] = 0;
-        }
+    for(int j = 0; j < 28; j++) {
+        cin >> n;
+        student[n - 1] = 0;
     }
 
-    for(int k = 1; k <= 30; k++) {
-        if(arr1[k] != 0) {
-            cout << arr1[k] << "\n";
+    for(int k = 0; k < 30; k++) {
+        if(student[k] != 0) {
+            cout << student[k] << "\n";
         }
     }
 }
