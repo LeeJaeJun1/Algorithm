@@ -1,47 +1,92 @@
 #include<iostream>
-#include<stack>
 using namespace std;
 
-int main() {
-    int n, num;
-    stack<int> stk;
-    string s;
-    cin >> n;
-    for(int i = 0; i < n; i++) {
-        cin >> s;
-        if(s == "push") {
-            cin >> num;
-            stk.push(num);
-        }
-        else if(s == "pop") {
-            if(stk.empty()) {
-                cout << "-1" << endl;
-            }
-            else{
-                cout << stk.top() << endl;
-                stk.pop();
-            }
+class node{
+private:
+    int data;
+    node* next;
+public:
+    node(int x) {
+        this->data = x;
+        this->next = NULL;
+    }
+    friend class Stack;
+};
 
+class Stack{
+private:
+    node* topNode;
+    int listSize;
+public:
+    Stack() {
+        topNode = NULL;
+        listSize = 0;
+    }
+    bool empty() {
+        if(listSize==0)
+            return true;
+        else
+            return false;
+    }
+    int size() {
+        return listSize;
+    }
+    int top() {
+        if(empty()) {
+            return -1;
         }
-        else if(s == "size") {
-            cout << stk.size() << endl;
+        return topNode->data;
+    }
+    void push(int x) {
+        node* newNode = new node(x);
+        if(empty()) {
+            topNode = newNode;
         }
-        else if(s == "empty") {
-            if(stk.empty()) {
-                cout << "1" << endl;
-            }
-            else{
-                cout << "0" << endl;
-            }
+        else{
+            newNode->next = topNode;
+            topNode = newNode;
+        }
+        listSize++;
+    }
+    void pop() {
+        if(empty()) {
+            cout << -1 << "\n";
+            return;
+        }
+        node* delNode = topNode;
+        cout << topNode->data << "\n";
+        topNode = topNode->next;
+        delete delNode;
+        listSize--;
+    }
+};
+
+int main() {
+    int N,x; string s;
+    cin >> N;
+    Stack list;
+    while(N--) {
+        cin >> s;
+        if(s=="push") {
+            cin >> x;
+            list.push(x);
         }
         else if(s=="top") {
-            if(stk.empty()) {
-                cout << "-1" << endl;
+            cout << list.top() << "\n";
+        }
+        else if(s=="size") {
+            cout << list.size() << "\n";
+        }
+        else if(s=="empty") {
+            if(list.empty()) {
+                cout << 1 << "\n";
             }
             else{
-                cout << stk.top() << endl;
+                cout << 0 << "\n";
             }
         }
+        else if(s=="pop") {
+            list.pop();
+        }
     }
-    return 0;
 }
