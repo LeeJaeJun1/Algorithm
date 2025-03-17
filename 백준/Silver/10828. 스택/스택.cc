@@ -1,92 +1,79 @@
 #include<iostream>
 using namespace std;
 
-class node{
+class arrayStack {
 private:
-    int data;
-    node* next;
+    int capacity;
+    int topIndex;
+    int* arr;
 public:
-    node(int x) {
-        this->data = x;
-        this->next = NULL;
-    }
-    friend class Stack;
-};
-
-class Stack{
-private:
-    node* topNode;
-    int listSize;
-public:
-    Stack() {
-        topNode = NULL;
-        listSize = 0;
+    arrayStack(int sz) {
+        this->capacity = sz;
+        this->topIndex = -1;
+        this->arr = new int[capacity];
     }
     bool empty() {
-        if(listSize==0)
+        if(topIndex==-1) {
             return true;
-        else
+        }
+        else{
             return false;
+        }
     }
     int size() {
-        return listSize;
+        return topIndex+1;
     }
     int top() {
         if(empty()) {
             return -1;
         }
-        return topNode->data;
+        return arr[topIndex];
     }
     void push(int x) {
-        node* newNode = new node(x);
-        if(empty()) {
-            topNode = newNode;
+        if(capacity <= size()) {
+            cout << "FULL" << "\n";
+            return;
         }
-        else{
-            newNode->next = topNode;
-            topNode = newNode;
-        }
-        listSize++;
+        arr[topIndex+=1] = x;
     }
     void pop() {
         if(empty()) {
             cout << -1 << "\n";
             return;
         }
-        node* delNode = topNode;
-        cout << topNode->data << "\n";
-        topNode = topNode->next;
-        delete delNode;
-        listSize--;
+        else {
+            cout << arr[topIndex] << "\n";
+            topIndex--;
+        }
     }
 };
 
 int main() {
-    int N,x; string s;
-    cin >> N;
-    Stack list;
-    while(N--) {
+    int M,x; string s;
+    cin >> M;
+    arrayStack arr(10000);
+    while(M--) {
         cin >> s;
-        if(s=="push") {
-            cin >> x;
-            list.push(x);
-        }
-        else if(s=="top") {
-            cout << list.top() << "\n";
-        }
-        else if(s=="size") {
-            cout << list.size() << "\n";
+        if(s=="size") {
+            cout << arr.size() << "\n";
         }
         else if(s=="empty") {
-            if(list.empty()) {
+            if(arr.empty()) {
                 cout << 1 << "\n";
             }
             else{
                 cout << 0 << "\n";
             }
         }
+        else if(s=="push") {
+            cin >> x;
+            arr.push(x);
+        }
+        else if(s=="top") {
+            cout << arr.top() << "\n";
+        }
         else if(s=="pop") {
-            list.pop();
+            arr.pop();
         }
     }
 }
