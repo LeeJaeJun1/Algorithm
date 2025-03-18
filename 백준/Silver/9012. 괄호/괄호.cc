@@ -2,35 +2,38 @@
 #include<stack>
 using namespace std;
 
-string checkvps(string s2) {
-    stack<char> s1;
-    for(int i = 0; i < s2.size(); i++) {
-        if(s2[i] == '(') {
-            s1.push('(');
-        }
-        else{
-            if(s1.empty()) {
-                return "NO";
-            }
-            else {
-                s1.pop();
-            }
-        }
-    }
-    if(s1.empty()) {
-        return "YES";
-    }
-    else{
-        return "NO";
-    }
-}
+
 
 int main() {
-    int t;
-    string vps;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int t; string s;
     cin >> t;
-    for(int j = 0; j < t; j++) {
-        cin >> vps;
-        cout << checkvps(vps) << endl;
+    while(t--) {
+        stack<char> sta;
+        bool isValid = true;
+        cin >> s;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] == '(') {
+                sta.push(s[i]);
+            }
+            else{
+                if(sta.empty()) {
+                    cout << "NO" << "\n";
+                    isValid = false;
+                    break;
+                }
+                else{
+                    sta.pop();
+                }
+            }
+        }
+        if(isValid) {
+            if (sta.empty()) {
+                cout << "YES" << "\n";
+            } else {
+                cout << "NO" << "\n";
+            }
+        }
     }
 }
