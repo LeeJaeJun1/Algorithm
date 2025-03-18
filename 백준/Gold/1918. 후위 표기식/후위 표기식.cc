@@ -2,42 +2,41 @@
 #include<stack>
 using namespace std;
 
-int getPriority(char op) {
-    if (op == '*' || op == '/') return 2;
-    if (op == '+' || op == '-') return 1;
+int Prior(char str) {
+    if(str=='*' || str=='/') return 2;
+    if(str=='+' || str=='-') return 1;
     return 0;
 }
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    stack<char> sta;
-    string s;
-    cin >> s;
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i] >= 'A' && s[i] <= 'Z') {
-            cout << s[i];
+    stack<char> s;
+    string com;
+    cin >> com;
+    for(int i = 0; i < com.size(); i++) {
+        if(com[i] >= 'A' && com[i] <= 'Z') {
+            cout << com[i];
         }
-        else if(s[i] == '(') {
-            sta.push(s[i]);
+        else if(com[i] == '(') {
+            s.push(com[i]);
         }
-        else if(s[i] == ')') {
-            while(!sta.empty() && sta.top() != '(') {
-                cout << sta.top();
-                sta.pop();
+        else if(com[i] == ')') {
+            while(!s.empty() && s.top() != '(') {
+                cout << s.top();
+                s.pop();
             }
-            sta.pop();
+            s.pop();
         }
         else{
-            while(!sta.empty() && getPriority(sta.top()) >= getPriority(s[i])) {
-                cout << sta.top();
-                sta.pop();
+            while(!s.empty() && Prior(s.top()) >= Prior(com[i])) {
+                cout << s.top();
+                s.pop();
             }
-            sta.push(s[i]);
+            s.push(com[i]);
         }
     }
-    while(!sta.empty()) {
-        cout << sta.top();
-        sta.pop();
+
+    while(!s.empty()) {
+        cout << s.top();
+        s.pop();
     }
 }
