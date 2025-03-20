@@ -2,41 +2,40 @@
 #include<stack>
 using namespace std;
 
-int Prior(char str) {
-    if(str=='*' || str=='/') return 2;
-    if(str=='+' || str=='-') return 1;
+int Prior(char s) {
+    if(s=='*' || s=='/') return 2;
+    if(s=='+' || s=='-') return 1;
     return 0;
 }
 
 int main() {
-    stack<char> s;
-    string com;
-    cin >> com;
-    for(int i = 0; i < com.size(); i++) {
-        if(com[i] >= 'A' && com[i] <= 'Z') {
-            cout << com[i];
+    string s;
+    cin >> s;
+    stack<char> sta;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] >= 'A' && s[i] <= 'Z') {
+            cout << s[i];
         }
-        else if(com[i] == '(') {
-            s.push(com[i]);
+        else if(s[i] == '(') {
+            sta.push(s[i]);
         }
-        else if(com[i] == ')') {
-            while(!s.empty() && s.top() != '(') {
-                cout << s.top();
-                s.pop();
+        else if(s[i] == ')') {
+            while(!sta.empty() && sta.top() != '(') {
+                cout << sta.top();
+                sta.pop();
             }
-            s.pop();
+            sta.pop();
         }
         else{
-            while(!s.empty() && Prior(s.top()) >= Prior(com[i])) {
-                cout << s.top();
-                s.pop();
+            while(!sta.empty() && Prior(sta.top()) >= Prior(s[i])) {
+                cout << sta.top();
+                sta.pop();
             }
-            s.push(com[i]);
+            sta.push(s[i]);
         }
     }
-
-    while(!s.empty()) {
-        cout << s.top();
-        s.pop();
+    while(!sta.empty()) {
+        cout << sta.top();
+        sta.pop();
     }
 }
