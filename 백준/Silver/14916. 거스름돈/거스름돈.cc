@@ -2,26 +2,25 @@
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
     int n;
-    int total = 0;
     cin >> n;
-    if(n%5 == 0) {
-        cout << n / 5;
+    int total = 0;
+    while (n > 0) {
+        if (n % 5 == 0) {
+            total += n / 5;
+            break;
+        }
+        n -= 2;
+        total += 1;
+    }
+
+    if (n < 0) {
+        cout << "-1" << "\n";
     }
     else {
-        while(n > 0) {
-            n -= 2;
-            total++;
-            if(n % 5 == 0) {
-                total += n / 5;
-                cout << total;
-                break;
-            }
-
-        }
+        cout << total << "\n";
+       
     }
-    if(n < 0) {
-        cout << -1;
-    }
-
 }
