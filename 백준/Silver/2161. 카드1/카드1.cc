@@ -9,16 +9,16 @@ int main() {
     cin >> n;
     queue<int> qu;
     for(int i = 1; i <= n; i++) {
-        qu.push(i); // 1,2,3,4,5,6,7 순서대로 넣음
+        qu.push(i);
     }
-    // 제일 위에 카드 버리고, 그 다음 카드 맨 아래로 내리기 반복
-    while(n--) {
+    while(!qu.empty()) {
         cout << qu.front() << " ";
         qu.pop();
-        if(qu.front() % 2 == 0) {
-            qu.push(qu.front());
-            qu.pop();
+        if(qu.empty()) {
+            break;
         }
+        int a = qu.front();
+        qu.pop();
+        qu.push(a);
     }
-
 }
