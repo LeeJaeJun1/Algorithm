@@ -2,72 +2,51 @@
 using namespace std;
 
 int bingo[5][5];
-int check[5][5];
+int game[5][5] = {0,};
 
-int ch1() {
-    int ans = 0;
+
+int check() {
+    int co = 0;
     for(int i = 0; i < 5; i++) {
-        if(check[i][0] && check[i][1] && check[i][2] && check[i][3] && check[i][4])
-            ans++;
+        if(game[0][i] && game[1][i] && game[2][i] && game[3][i] && game[4][i]) {
+            co+=1;
+        }
+        if(game[i][0] && game[i][1] && game[i][2] && game[i][3] && game[i][4]) {
+            co+=1;
+        }
     }
-    return ans;
-}
-
-int ch2() {
-    int ans = 0;
-    for(int i = 0; i < 5; i++) {
-        if(check[0][i] && check[1][i] && check[2][i] && check[3][i] && check[4][i])
-            ans++;
+    if(game[0][0] && game[1][1] && game[2][2] && game[3][3] && game[4][4]) {
+        co += 1;
     }
-    return ans;
-}
-
-int ch3() {
-    int ans = 0;
-
-    if(check[0][0] && check[1][1] && check[2][2] && check[3][3] && check[4][4])
-        ans++;
-
-    return ans;
-}
-
-int ch4() {
-    int ans = 0;
-
-    if(check[0][4] && check[1][3] && check[2][2] && check[3][1] && check[4][0])
-        ans++;
-
-    return ans;
+    if(game[0][4] && game[1][3] && game[2][2] && game[3][1] && game[4][0]) {
+        co += 1;
+    }
+    return co;
 }
 
 int main() {
-   ios::sync_with_stdio(0);
-   cin.tie(0);
-
-   for(int i = 0; i < 5; i++) {
-       for(int j = 0; j < 5; j++) {
-           cin >> bingo[i][j];
-       }
-   }
-
-   for(int k = 0; k < 25; k++) {
-       int number;
-       cin >> number;
-       int total = 0;
-
-       for(int a = 0; a < 5; a++) {
-           for(int b = 0; b < 5; b++) {
-               if(bingo[a][b] == number) {
-                   check[a][b] = 1;
-               }
-           }
-       }
-
-       total += ch1(); total += ch2(); total += ch3(); total += ch4();
-
-       if(total >= 3) {
-           cout << k + 1 << endl;
-           return 0;
-       }
-   }
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int num;
+    for(int i = 0; i < 5; i++) {
+        for(int j = 0; j < 5; j++) {
+            cin >> bingo[i][j];
+        }
+    }
+    for(int k = 0; k < 25; k++) {
+        cin >> num;
+        int cnt = 0;
+        for (int a = 0; a < 5; a++) {
+            for (int b = 0; b < 5; b++) {
+                if (bingo[a][b] == num) {
+                    game[a][b] = 1;
+                }
+            }
+        }
+        cnt += check();
+        if (cnt >= 3) {
+            cout << k + 1;
+            return 0;
+        }
+    }
 }
