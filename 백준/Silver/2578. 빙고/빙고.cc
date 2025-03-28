@@ -46,7 +46,7 @@ int main() {
         cnt += check();
         if (cnt >= 3) {
             cout << k + 1;
-            return 0;
+            break;
         }
     }
 }
