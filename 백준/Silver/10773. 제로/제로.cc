@@ -3,27 +3,25 @@
 using namespace std;
 
 int main() {
-    int K{0};
-    int sum{0};
-    stack<int> st;
-    
-    cin >> K;
-    for(int i = 0; i < K; i++) {
-        int num;
-        cin >> num;
-        if(num != 0) { // 0이 아닌 경우 push
-            st.push(num);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    stack<int> sta;
+    int money, num;
+    int total = 0;
+
+    cin >> num;
+    for(int i = 0; i < num; i++) {
+        cin >> money;
+        if(money != 0) {
+            sta.push(money);
         }
-        else if(num == 0) { // 0인 경우 pop
-            st.pop();
+        else {
+            sta.pop();
         }
     }
-    
-    while(!st.empty()) { 
-    // 0일 경우에 지울 수 있는 수가 있음을 보장하기 때문에 비어있지 않을때까지
-       sum = sum + st.top();
-       st.pop();
+    while(!sta.empty()) {
+        total += sta.top();
+        sta.pop();
     }
-   
-   cout << sum;
+    cout << total << "\n";
 }
