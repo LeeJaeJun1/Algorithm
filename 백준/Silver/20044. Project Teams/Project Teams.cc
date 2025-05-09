@@ -5,21 +5,22 @@ using namespace std;
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int n, w;
-    int arr1[1000000];
-    cin >> n;
-    for(int i = 0; i < 2 * n; i++) {
-        cin >> w;
-        arr1[i] = w;
+    int team;
+    cin >> team;
+    int st = team * 2;
+    int student[10001];
+
+    for(int i = 0; i < st; i++) {
+        cin >> student[i];
     }
-    sort(arr1, arr1+ 2*n);
-    int a = 0; int b = 2*n-1;
-    int min = arr1[a] + arr1[b];
-    while(a < b) {
-        if(arr1[a] + arr1[b] < min) {
-            min = arr1[a] + arr1[b];
+
+    sort(student, student+st);
+
+    long long Min = 200000;
+    for(int j = 0; j < team; j++) {
+        if(Min > student[j] + student[st - j - 1]) {
+            Min = student[j] + student[st - j - 1];
         }
-        a+=1; b-=1;
     }
-    cout << min;
+    cout << Min << "\n";
 }
