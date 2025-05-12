@@ -1,48 +1,38 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-int n, m;
-string s;
-int a[104][104];
-int main()
-{
-    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    cin >> n >> m;
-    // 초기 배열 입력
-    for (int i = 0; i < n; i++)
-    {
-        cin >> s;
-        for (int j = 0; j < m; j++)
-        {
-            if (s[j] == '.')
-            {
-                a[i][j] = -1;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int h,w; string status;
+    int weather[101][101] = {}; // 0으로 모두 초기화
+    cin >> h >> w;
+
+    for(int i = 0; i < h; i++) {
+        cin  >> status;
+        for(int j = 0; j < w; j++) {
+            if(status[j] == '.') {
+                weather[i][j] = -1;
             }
         }
     }
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            // 현재 구름이 있는 지역부터 시작
-            if (a[i][j] == 0)
-            {
-                int cnt = 1;
-                // 다음 구름이 등장하기 전까지 반복
-                while (a[i][j + 1] == -1)
-                {
-                    a[i][j + 1] = cnt++;
-                    j++;
+
+    for(int a = 0; a < h; a++) {
+        for(int b = 0; b < w; b++) {
+            if(weather[a][b] == 0) {
+                int count = 0;
+                while(weather[a][b+1] == -1) {
+                    weather[a][b+1] = ++count;
+                    b++;
                 }
             }
         }
     }
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cout << a[i][j] << " ";
+
+    for(int c = 0; c < h; c++) {
+        for(int d = 0; d < w; d++) {
+            cout << weather[c][d] << " ";
         }
-        cout << '\n';
+        cout << "\n";
     }
-    return 0;
 }
