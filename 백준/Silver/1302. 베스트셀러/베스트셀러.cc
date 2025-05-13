@@ -3,25 +3,21 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int n;
-    string book;
-    map<string, int> m;
-    cin >> n;
-
-    for(int i = 0; i < n; i++) {
-        cin >> book;
-        m[book]++;
+    map<string,int> m ;
+    int book; string name;
+    cin >> book;
+    for(int i = 0; i < book; i++) {
+        cin >> name;
+        m[name]++;
     }
 
-    string title;
-    int max  = 0;
+    int max = 0;
+    string Max;
     for(auto x : m) {
         if(x.second > max) {
             max = x.second;
-            title = x.first;
+            Max = x.first;
         }
     }
-    cout << title;
+    cout << Max << "\n";
 }
