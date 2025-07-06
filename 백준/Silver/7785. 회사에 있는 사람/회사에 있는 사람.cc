@@ -1,30 +1,22 @@
 #include<iostream>
-#include<algorithm>
 #include<map>
-
 using namespace std;
 
-int main()
-{
-	map<string, string, greater<string>> m;
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    map<string,string,greater<>> com;
+    string name,sta;
+    int num;
+    cin >> num;
 
-	int cnt;
-	cin >> cnt;
-
-	for (int i = 0; i < cnt; ++i)
-	{
-		string name, enter;
-		cin >> name >> enter;
-
-		m[name] = enter;
-	}
-
-	map<string, string> ::iterator it;
-	for (it = m.begin(); it != m.end(); ++it)
-	{
-		if (it->second == "enter")
-		{
-			cout << it->first << '\n';
-		}
-	}
+    while(num--) {
+        cin >> name >> sta;
+        com[name] = sta;
+    }
+    for(auto x : com) {
+        if(x.second == "enter") {
+            cout << x.first << "\n";
+        }
+    }
 }
