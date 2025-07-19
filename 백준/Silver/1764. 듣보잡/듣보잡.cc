@@ -1,29 +1,35 @@
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include<iostream>
+#include<algorithm>
 #include<map>
-#include<vector>
+
 using namespace std;
 
 int main() {
-    int N, M;
-    map<string, int> Map;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    map<string,int> list;
     vector<string> v;
-    
-    cin >> N >> M;
-    for(int i = 0; i < N+M; i++) {
-        string s;
-        cin >> s;
-        Map[s]++;
-        if(Map[s] > 1) {
-            v.push_back(s);
+    string name;
+    int n,m;
+
+    cin >> n >> m;
+
+    while(n--) {
+        cin >> name;
+        list[name] = 1;
+    }
+
+    while(m--) {
+        cin >> name;
+        if(list[name] == 1) {
+            v.push_back(name);
         }
     }
-    
+
     sort(v.begin(), v.end());
-    
+
     cout << v.size() << "\n";
-    for(int i = 0; i < v.size(); i++) {
-        cout << v[i] << "\n";
+    for(int j = 0; j < v.size(); j++) {
+        cout << v[j] << "\n";
     }
 }
