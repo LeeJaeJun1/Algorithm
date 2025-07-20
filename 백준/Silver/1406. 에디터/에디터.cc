@@ -1,142 +1,61 @@
 #include<iostream>
+#include<list>
+
 using namespace std;
 
-class Node{
-public:
-    Node* next = nullptr;
-    Node* prev = nullptr;
-    char value;
-};
-
-class Iterator {
-public:
-    Node* node;
-    Iterator() {
-        node = nullptr;
-    }
-    void set(Node* node) {
-        this->node = node;
-    }
-    Iterator* operator++() {
-        node = node->next;
-        return this;
-    }
-    Iterator* operator--() {
-        node = node->prev;
-        return this;
-    }
-};
-
-class Sequence {
-public:
-    Node* head;
-    Node* tail;
-    int size;
-
-    Sequence() {
-        head = new Node;
-        tail = new Node;
-        head->next = tail;
-        tail->prev = head;
-        size = 0;
-    }
-    Node* begin() {
-        return head->next;
-    }
-    Node* end() {
-        return tail;
-    }
-
-    void insert(Iterator& p, char e) {
-        Node* newNode = new Node;
-        newNode->value = e;
-
-        p.node->prev->next = newNode;
-        newNode->prev = p.node->prev;
-        newNode->next = p.node;
-        p.node->prev = newNode;
-        this->size++;
-    }
-    void erase(Iterator& p) {
-        if(size==0 || p.node==head->next) {
-            return;
-        }
-        Node* delNode = p.node->prev;
-        delNode->prev->next = delNode->next;
-        delNode->next->prev = delNode->prev;
-        size--;
-        delete delNode;
-    }
-    void nextP(Iterator& p) {
-        if(p.node == tail) {
-            return;
-        }
-        ++p;
-    }
-    void prevP(Iterator& p) {
-        if(p.node==head->next) {
-            return;
-        }
-        --p;
-    }
-    void findmultiple(int e) {
-        int idx = 0; int count = 0;
-        Iterator q = Iterator();
-        q.node = begin();
-
-        while(q.node!= end()) {
-            if(q.node->value % e == 0) {
-                cout << idx << " ";
-                count++;
-            }
-            idx++;
-            nextP(q);
-        }
-        if(count==0) {
-            cout << -1 << "\n";
-        }
-        else{
-            cout << "\n";
-        }
-    }
-    void print() {
-        Node* curNode = head->next;
-        while(curNode !=tail) {
-            cout << curNode->value << "";
-            curNode = curNode->next;
-        }
-        cout << "\n";
-    }
-};
+// 커서는 맨 앞, 맨 뒤 중간 임의의 곳에 위치
+// 명령어가 수행되기 전에 커서는 문장의 맨 뒤에 위치
 
 int main() {
-    string str,command;
-    char ch;
-    Sequence sa;
-    Iterator p;
-    p.set(sa.begin());
-    cin >> str;
-    for(int i = 0; i < str.size(); i++) {
-        sa.insert(p,str[i]);
-    }
-    int M;
-    cin >> M;
-    while(M--) {
-        cin >> command;
-        if(command=="L") {
-            sa.prevP(p);
-        }
-        else if(command == "D") {
-            sa.nextP(p);
-        }
-        else if(command == "B") {
-            sa.erase(p);
-        }
-        else if(command == "P") {
-            cin >> ch;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-            sa.insert(p,ch);
+    list<char> li;
+    list<char>::iterator it; // cursor 역할
+
+    string s;
+    int num;
+    char cmd, add;
+
+    cin >> s >> num;
+
+    for(int i = 0; i < s.length(); i++) {
+        li.push_back(s[i]); // a b c d
+    }
+
+    it = li.end(); // 초기에 맨 끝에 위치한다.
+
+    while(num--) {
+        cin >> cmd;
+        if(cmd == 'L') { // 커서를 왼족으로 한 칸(문장 맨 앞 무시)
+            if(it != li.begin()) {
+                it--;
+            }
+        }
+        if(cmd == 'D')  { // 커서 오른쪽 한 칸(문장 맨 뒤면 무시)
+            if(it != li.end()) {
+                it++;
+            }
+        }
+        if(cmd == 'B') { // 커서 왼쪽에 있는 문자 삭제
+            // 삭제로 인해 커서는 한 칸 왼쪽으로 이동한 것처럼 보이지만
+            // 실제로 커서의 오른쪽 문자는 그대로
+            // 커서를 왼쪽으로 옮기면서, li에서 삭제도
+            if(it != li.begin()) {
+                // li.erase(it--);
+                // error for object 0x16ae530f0: pointer being freed was not allocated
+                // 동적으로 할당된 메모리 해제할 떄, 해당 포인터가 실제로 할당된 적이 없는 메모리 가리키고 있음
+                it = li.erase(--it);
+            }
+        }
+        if(cmd == 'P') { // 문자를 커서 왼쪽에 추가
+            // list에서 insert(iterator, value) it위치에 val 값 추가
+            cin >> add;
+            li.insert(it, add);
         }
     }
-    sa.print();
+
+    for(auto a : li) {
+        cout << a;
+    }
 }
