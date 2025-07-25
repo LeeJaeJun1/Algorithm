@@ -1,29 +1,22 @@
-
-#include <iostream>
-#include <vector>
+#include<iostream>
 using namespace std;
 
 int main() {
-    vector<int> v;
-    int N, K;
-    int answer = 0;
-    cin >> N >> K;
-
-    for (int i = 0; i < N; i++) {
-        int num;
-        cin >> num;
-        v.push_back(num);
-    }
-
-    for (int i = N - 1; i >= 0; i--) { 
-        if (K >= v[i]) {
-            answer += K / v[i];
-            K %= v[i];
-            
-        }
-        }
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int n,k,num = 0;
+    cin >> n >> k;
+    int arr1[n];
     
-
-    cout << answer;
-    return 0;
+    for(int i = 0; i < n; i++) {
+        cin >> arr1[i];
+    }
+    
+    for(int j = n - 1; j >= 0; j--) {
+        if(k >= arr1[j]) {
+            num += k / arr1[j];
+            k %= arr1[j];
+        }
+    }
+    cout << num;
 }
