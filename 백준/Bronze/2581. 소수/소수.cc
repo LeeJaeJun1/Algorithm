@@ -1,14 +1,11 @@
 #include<iostream>
 using namespace std;
 
-// 소수는 1과 자기 자신만을 약수로 가지는 수
-// m <= x <= n 값 중에서, 소수의 합과 최솟값 찾기
-
-bool check(int a) {
-    if(a==1) {
+bool Prime(int a) {
+    if(a < 2) {
         return false;
     }
-    for(int i = 2; i < a; i++) {
+    for(int i = 2; i * i <= a; i++) {
         if(a % i == 0) {
             return false;
         }
@@ -17,22 +14,25 @@ bool check(int a) {
 }
 
 int main() {
-    int m,n;
-    int total = 0;  int min = 10000;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int m,n,total = 0;
+    int min = 10000;
     cin >> m >> n;
+
     for(int i = m; i <= n; i++) {
-        if(check(i)) {
-            total += i;
+        if(Prime(i)) {
             if(min > i) {
                 min = i;
             }
+            total += i;
         }
     }
-
-    if(total == 0)
-        cout << -1 << endl;
-
-    else
-        cout << total << "\n" << min << "\n";
-    
+    if(total != 0) {
+        cout << total << "\n" << min;
+    }
+    else {
+        cout << "-1\n";
+    }
 }
