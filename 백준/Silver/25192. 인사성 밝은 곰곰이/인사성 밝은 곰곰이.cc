@@ -1,32 +1,33 @@
 #include<iostream>
-#include<map>
-
+#include<set>
 using namespace std;
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    map<string,int> name;
-    int num,count=0;
-    string nick;
+    cout.tie(0);
 
-    cin >> num;
-    for(int i = 0; i < num; i++) {
-        cin >> nick;
+    /*
+    1. 중복된 값을 허용하지 않습니다.
+    2. 값이 항상 정렬된 상태를 유지합니다. (기본적으로 오름차순 정렬)
+    3. 값 삽입, 삭제, 검색 등의 연산에 대해 빠른 속도를 보입니다.
+    4. 값이 삽입되면 자동으로 정렬되므로, 삽입 후에도 정렬을 할 필요가 없습니다.
+     */
 
-        // nick이 ENTER이면 초기화
-        // nick이 이름이면 , 처음일 경우 count++
+    set<string> s;
+    int n, count = 0; string str;
+    cin >> n;
 
-        if(nick=="ENTER") {
-            name.erase(name.begin(), name.end());
+    for(int i = 0; i < n; i++) {
+        cin >> str;
+        if(str == "ENTER") {
+            count += s.size();
+            s.clear();
         }
-        if(nick != "ENTER") {
-            if(name[nick] == 2) {
-                continue;
-            }
-            name[nick] = 2;
-            count++;
+        else {
+            s.insert(str);
         }
     }
+    count += s.size();
     cout << count;
 }
