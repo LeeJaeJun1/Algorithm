@@ -25,12 +25,6 @@ void search(int num, int weight) {
 
 
 int main() {
-    // 항상 500이상
-    // 3! 조합 함수
-    // next_permutation 함수,,,,, 중복 원소가 있으면 중복 제거된 순열만 생성한다....
-    // 마구 난사하면 안된다라는 교훈,,,
-    // 그럼 뭐 직접 만들어야지 휴
-    // 그림 그려보는게 진짜 중요하다!
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
