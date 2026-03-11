@@ -1,28 +1,33 @@
 #include<iostream>
-#include<algorithm>
+#include<queue>
 using namespace std;
 
 int main() {
-    long n,m;
+    priority_queue<long long, vector<long long>, greater<long long>> pq;
+
+    long long n,m, num, total = 0;
     cin >> n >> m; // 카드 개수, 합체 몇 번
 
-    long card[n];
-
     for (int i = 0; i < n; i++) {
-        cin >> card[i];
+        cin >> num;
+        pq.push(num);
     }
 
     while (m--) {
-        sort(card, card + n);
-        long num = card[0] + card[1];
-        card[0] = num;
-        card[1] = num;
+        long long min = pq.top();
+        pq.pop();;
+        long long Min = pq.top();
+        pq.pop();
+
+        long long sum = min + Min;
+        pq.push(sum);
+        pq.push(sum);
     }
 
-    long sum = 0;
     for (int i = 0; i < n; i++) {
-        sum += card[i];
+        total += pq.top();
+        pq.pop();
     }
 
-    cout << sum << endl;
+    cout << total << endl;
 }
